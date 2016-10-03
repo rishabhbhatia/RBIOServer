@@ -4,12 +4,15 @@
   "description": "battleitoutserver",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "mocha test",
     "start": "node index.js"
   },
   "author": "rishabh bhatia",
   "license": "ISC",
   "dependencies": {
     "lodash": "^4.16.3"
+  },
+  "devDependencies": {
+    "mocha": "^3.1.0"
   }
 }
