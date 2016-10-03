@@ -1,35 +1,16 @@
-// app/index.js
-const calc = require('./calc')
-const fs = require('fs')
-const http = require('http')
+const express = require('express')  
+const app = express()  
 const port = 3000
 
-/*fs.readFile('./app/hello.txt', 'utf-8', function (err, content) {  
-  if (err) {
-    return console.log(err)
-  }
-
-  console.log(content)
+app.get('/', (request, response) => {  
+  response.send('Hello from Express!')
 })
 
-const numbersToAdd = [  
-  3,
-  4,
-  10,
-  2
-]
+app.get('/home', (request, response) => {  
+  response.send('Welcome home!')
+})
 
-const result = calc.sum(numbersToAdd)  
-console.log(`The result is: ${result}`)	*/	
-
-const requestHandler = (request, response) => {  
-  console.log(request.url)
-  response.end('Hello Node.js Server!')
-}
-
-const server = http.createServer(requestHandler)
-
-server.listen(port, (err) => {  
+app.listen(port, (err) => {  
   if (err) {
     return console.log('something bad happened', err)
   }
