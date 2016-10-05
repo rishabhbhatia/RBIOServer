@@ -55,8 +55,7 @@ var insert_records = function(req, res) {
     console.log(userObject)
     console.log(name)
     console.log(age)
-        //Drop table if it exists
-    client.query("DROP TABLE IF EXISTS users");
+        
     // Creat table and insert 2 records into it
     client.query("CREATE TABLE IF NOT EXISTS users(name varchar(64), age smallint)");
     client.query("INSERT INTO users(name,age) values($1,$2)", [name, age]);
