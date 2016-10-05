@@ -27,12 +27,12 @@ app.get('/home', (request, response) => {
     response.send('Welcome home!')
 })
 app.get('/users', function(req, res, next) {
-    get_users(req, res)
+    getUsers(req, res)
 })
 app.post('/users', function(req, res) {
-    insert_records(req, res);
+    createUser(req, res);
 })
-var get_users = function(req, res) {
+var getUsers = function(req, res) {
     client.query('SELECT name, age FROM users;', [], function(err, result) {
         if (err) {
             return next(err)
@@ -40,14 +40,14 @@ var get_users = function(req, res) {
         var allUsers = result.rows;
         var activeUsers = {};
         
-        if(allUsers[0].name !== "rishabh")
+        if(allUsers[0].name === "rishabh")
         {
-        	activeUsers[0] = allUsers[0]
+        	activeUsers = allUsers[0]
         }
         res.json(activeUsers)
     })
 };
-var insert_records = function(req, res) {
+var createUser = function(req, res) {
     var user = JSON.stringify(req.body);
     var userObject = JSON.parse(user);
     var name = userObject.name;
