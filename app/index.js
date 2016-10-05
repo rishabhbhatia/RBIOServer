@@ -37,7 +37,14 @@ var get_users = function(req, res) {
         if (err) {
             return next(err)
         }
-        res.json(result.rows)
+        var allUsers = result.rows;
+        var activeUsers = {};
+        
+        if(allUsers[0].name !== "rishabh")
+        {
+        	activeUsers[0] = allUsers[0]
+        }
+        res.json(activeUsers)
     })
 };
 var insert_records = function(req, res) {
