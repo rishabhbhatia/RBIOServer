@@ -26,24 +26,34 @@ app.get('/', (request, response) => {
 app.get('/home', (request, response) => {
     response.send('Welcome home!')
 })
+app.get('/users', function(req, res, next) {
+    get_users(req, res)
+})
 app.post('/users', function(req, res) {
     insert_records(req, res);
-    res.send('successfully registered')
 })
+var get_users = function(req, res) {
+    client.query('SELECT name, age FROM users;', [], function(err, result) {
+        if (err) {
+            return next(err)
+        }
+        res.json(result.rows)
+    })
+};
 var insert_records = function(req, res) {
-	var user = JSON.stringify(req.body);
-	var userObject = JSON.parse(user);
-	var name = userObject.name;
-	var age = userObject.age;
-
-	console.log(userObject)
-	console.log(name)
-	console.log(age)
+    var user = JSON.stringify(req.body);
+    var userObject = JSON.parse(user);
+    var name = userObject.name;
+    var age = userObject.age;
+    console.log(userObject)
+    console.log(name)
+    console.log(age)
         //Drop table if it exists
     client.query("DROP TABLE IF EXISTS users");
     // Creat table and insert 2 records into it
     client.query("CREATE TABLE IF NOT EXISTS users(name varchar(64), age smallint)");
     client.query("INSERT INTO users(name,age) values($1,$2)", [name, age]);
+    res.send('successfully registered')
 };
 app.use((err, request, response, next) => {
     // log the error, for now just console.log
