@@ -66,7 +66,7 @@ app.use((err, request, response, next) => {
     console.log(err)
     response.status(400).send('Something broke!')
 })
-app.listen(port, (err) => {
+app.listen(port, "192.168.1.7", (err) => {
     if (err) {
         return console.log('something bad happened', err)
     }
